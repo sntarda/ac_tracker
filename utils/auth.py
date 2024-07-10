@@ -5,7 +5,7 @@ credentials = {
     'usernames': {
         'admin': {
             'name': 'Admin User',
-            'password': stauth.Hasher(['password']).generate()  # Hash the password
+            'password': stauth.Hasher(['password']).generate()[0]  # Hash the password
         }
     }
 }
