@@ -1,4 +1,5 @@
-Unit ID,Manufacturer,Model Number,Serial Number,Tonnage,Seer,Heat
-RTU 1,Carrier,65465464,15663489,5,14,Yes
-RTU 2,Trane,45356432,26483920,3,16,No
-
+Unit ID,Facility,Manufacturer,Model Number,Serial Number,Tonnage,Seer,Heat
+RTU 1,1001 S Sherman,Carrier,65465464,15663489,5,14,Yes
+RTU 2,1055 S Sherman,Trane,45356432,26483920,3,16,No
+RTU 3,1057 S Sherman,Carrier,65465465,15663490,4,15,Yes
+RTU 4,1059 S Sherman,Lennox,87654321,12345678,6,18,No
