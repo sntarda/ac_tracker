@@ -1,6 +1,6 @@
 import streamlit as st
 
-def display_page():
+def display_page(st):
     st.title("Add/Edit Unit")
     unit_id = st.text_input("Unit ID")
     location = st.text_input("Location")
