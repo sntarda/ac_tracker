@@ -37,7 +37,7 @@ if st.session_state['authenticated']:
         add_ticket.display_page()
     elif menu == "Building 1001":
         print("Calling display_page for Building 1001")
-        building_1001.display_page()
+        pages/building_1001.display_page()
     elif menu == "Building 1055":
         print("Calling display_page for Building 1055")
         building_1055.display_page()
