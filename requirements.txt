@@ -1,2 +1,5 @@
 streamlit
+streamlit-authenticator
+sqlalchemy
+pytest
 sqlite3
