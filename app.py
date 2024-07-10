@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.auth import authenticate_user
+from utils.auth import login
 from pages.login import login_page
 from pages.home import home_page
 from pages.add_edit_unit import add_edit_unit_page
@@ -18,13 +18,10 @@ def display_menu():
     st.sidebar.title("Main Menu")
     st.sidebar.button("Logout", key="logout")
     st.sidebar.markdown("---")
-    st.sidebar.button("Home/Dashboard", key="home")
-    st.sidebar.button("Add/Edit Unit", key="add_edit_unit")
-    st.sidebar.button("Add Ticket", key="add_ticket")
-    st.sidebar.button("Building 1001", key="building_1001")
-    st.sidebar.button("Building 1055", key="building_1055")
-    st.sidebar.button("Building 1057", key="building_1057")
-    st.sidebar.button("Building 1059", key="building_1059")
+    st.sidebar.radio("Navigation", 
+                     ["Home/Dashboard", "Add/Edit Unit", "Add Ticket",
+                      "Building 1001", "Building 1055", "Building 1057", "Building 1059"],
+                     key="navigation")
 
 # Main function to run the app
 def main():
@@ -51,14 +48,17 @@ def main():
             building_1057_page()
         elif page == "Building 1059":
             building_1059_page()
-        elif page == "unit_detail":
-            unit_detail_page()
-        elif page == "upload_image":
+
+        # Handle navigation to detailed pages
+        if 'selected_unit' in st.session_state:
+            unit_detail_page(st.session_state.selected_unit)
+        elif st.session_state.page == 'upload_image':
             upload_image_page()
-        elif page == "upload_document":
+        elif st.session_state.page == 'upload_document':
             upload_document_page()
-        elif page == "view_tickets":
+        elif st.session_state.page == 'view_tickets':
             view_tickets_page()
+
     else:
         login_page()
 
