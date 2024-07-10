@@ -15,7 +15,7 @@ def add_edit_unit_page():
         unit_data = {}
     else:
         new_unit = False
-        unit_data = units[units['Unit ID'] == unit_id].to_dict('records')[0]
+        unit_data = units[units['Unit ID'] == unit_id].iloc[0].to_dict()
 
     with st.form(key='unit_form'):
         unit_data['Unit ID'] = st.text_input("Unit ID", unit_data.get('Unit ID', ''))
@@ -32,8 +32,8 @@ def add_edit_unit_page():
         if new_unit:
             units = units.append(unit_data, ignore_index=True)
         else:
-            units.update(unit_data)
-        
+            units.update(pd.DataFrame([unit_data]))
+
         save_units('data/units.csv', units)
         st.success('Unit information saved successfully!')
 
