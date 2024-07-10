@@ -6,6 +6,11 @@ def building_1001_page():
     st.title("Building 1001")
 
     units = load_units('data/units.csv')
+
+    if 'Facility' not in units.columns:
+        st.error("The data does not contain the 'Facility' column.")
+        return
+
     building_units = units[units['Facility'] == '1001 S Sherman']
 
     if building_units.empty:
