@@ -1,11 +1,13 @@
 import streamlit_authenticator as stauth
 
 # Example credentials dictionary
+hashed_passwords = stauth.Hasher(['password']).generate()
+
 credentials = {
     'usernames': {
         'admin': {
             'name': 'Admin User',
-            'password': stauth.Hasher(['password']).generate()[0]  # Hash the password
+            'password': hashed_passwords[0]
         }
     }
 }
