@@ -1,15 +1,6 @@
 import streamlit as st
-from utils.auth import login, logout, check_authentication
-
-# Debugging prints
-print("Before importing pages")
-from pages import add_edit_unit
-from pages import add_ticket
-from pages import building_1001
-from pages import building_1055
-from pages import building_1057
-from pages import building_1059
-print("After importing pages")
+from utils.auth import login, logout
+from pages import add_edit_unit, add_ticket, building_1001, building_1055, building_1057, building_1059
 
 st.set_page_config(page_title="AC Unit Tracker", layout="wide")
 
@@ -30,22 +21,16 @@ if st.session_state['authenticated']:
         st.title("Home Page")
         st.write("Company Information: [Insert details here]")
     elif menu == "Add/Edit Unit":
-        print("Calling display_page for Add/Edit Unit")
         add_edit_unit.display_page()
     elif menu == "Add Ticket":
-        print("Calling display_page for Add Ticket")
         add_ticket.display_page()
     elif menu == "Building 1001":
-        print("Calling display_page for Building 1001")
-        pages/building_1001.display_page()
+        building_1001.display_page()
     elif menu == "Building 1055":
-        print("Calling display_page for Building 1055")
         building_1055.display_page()
     elif menu == "Building 1057":
-        print("Calling display_page for Building 1057")
         building_1057.display_page()
     elif menu == "Building 1059":
-        print("Calling display_page for Building 1059")
         building_1059.display_page()
 else:
     st.write("Please login to access the application.")
