@@ -31,7 +31,7 @@ if st.session_state['authenticated']:
         st.write("Company Information: [Insert details here]")
     elif menu == "Add/Edit Unit":
         print("Calling display_page for Add/Edit Unit")
-        pages.add_edit_unit.display_page()
+        pages.add_edit_unit.py.display_page()
     elif menu == "Add Ticket":
         print("Calling display_page for Add Ticket")
         pages.add_ticket.display_page()
