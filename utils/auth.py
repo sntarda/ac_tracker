@@ -1,32 +1,20 @@
-import streamlit_authenticator as stauth
+import streamlit as st
 
-# Example credentials dictionary with hashed passwords
-hashed_passwords = stauth.Hasher(['password']).generate()
+def login():
+    st.title("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "admin" and password == "password":  # Replace with your authentication logic
+            st.session_state['authenticated'] = True
+            return True
+        else:
+            st.error("Invalid credentials")
+    return False
 
-credentials = {
-    'usernames': {
-        'admin': {
-            'name': 'Admin User',
-            'password': hashed_passwords[0]
-        }
-    }
-}
+def logout():
+    st.session_state['authenticated'] = False
+    st.experimental_rerun()
 
-cookie = {
-    'expiry_days': 30,
-    'key': 'some_random_key',
-    'name': 'ac_tracker_cookie'
-}
-
-preauthorized = {
-    'emails': ['admin@domain.com']
-}
-
-# Initialize the authenticator
-authenticator = stauth.Authenticate(
-    credentials,
-    cookie['name'],
-    cookie['key'],
-    cookie['expiry_days'],
-    preauthorized
-)
+def check_authentication():
+    return st.session_state['authenticated']
