@@ -1,36 +1,9 @@
-from sqlalchemy import create_engine, Column, Integer, String, Date, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+import sqlite3
 
-DATABASE_URL = "sqlite:///ac_tracker.db"
-engine = create_engine(DATABASE_URL)
-Base = declarative_base()
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-session = SessionLocal()
-
-class Unit(Base):
-    __tablename__ = "units"
-    id = Column(Integer, primary_key=True, index=True)
-    facility = Column(String, index=True)
-    tenant = Column(String)
-    manufacturer = Column(String)
-    model_number = Column(String)
-    serial_number = Column(String)
-    tonnage = Column(Float)
-    seer = Column(Float)
-    heat = Column(String)
-    status = Column(String)
-    last_service = Column(Date)
-
-class Ticket(Base):
-    __tablename__ = "tickets"
-    id = Column(Integer, primary_key=True, index=True)
-    unit_id = Column(Integer, index=True)
-    issue = Column(String)
-    part = Column(String)
-    repair_status = Column(String)
-    check_date = Column(Date)
-    date_repaired = Column(Date)
-    cost = Column(Float)
-
-Base.metadata.create_all(bind=engine)
+def init_db():
+    conn = sqlite3.connect('ac_tracker.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS units (id INTEGER PRIMARY KEY, location TEXT, manufacturer TEXT, model_number TEXT, serial_number TEXT, tonnage REAL, seer TEXT, heat TEXT)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS tickets (id INTEGER PRIMARY KEY, unit_id INTEGER, issue TEXT, part TEXT, repair_status TEXT, date_repaired DATE, cost REAL)''')
+    conn.commit()
+    conn.close()
