@@ -6,13 +6,18 @@ def building_1059_page():
     st.title("Building 1059")
 
     units = load_units('data/units.csv')
+
+    if 'Facility' not in units.columns:
+        st.error("The data does not contain the 'Facility' column.")
+        return
+
     building_units = units[units['Facility'] == '1059 S Sherman']
 
     if building_units.empty:
         st.write("No units found for Building 1059.")
     else:
         for index, unit in building_units.iterrows():
-            if st.button(unit['Unit ID']):
+            if st.button(unit['Unit ID'], key=f"{unit['Unit ID']}_btn"):
                 st.session_state.selected_unit = unit['Unit ID']
                 st.session_state.page = 'unit_detail'
 
