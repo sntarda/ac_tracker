@@ -1,33 +1,22 @@
 import streamlit as st
+from utils.db_operations import load_units
 
-def display_page():
-    st.title("Building 1059 Units")
-    unit_list = ["RTU 1", "RTU 2", "RTU 3"]  # Example units, replace with actual data fetching logic
-    
-    for unit in unit_list:
-        if st.button(unit):
-            st.session_state['selected_unit'] = unit
-            st.experimental_rerun()
-    
-    if 'selected_unit' in st.session_state:
-        display_unit_details(st.session_state['selected_unit'])
+# Function to display the Building 1059 page
+def building_1059_page():
+    st.title("Building 1059")
 
-def display_unit_details(unit):
-    st.subheader(f"Details for {unit}")
-    st.write("Location: [Insert Location]")
-    st.write("Tenant: [Insert Tenant]")
-    st.write("Manufacturer: Carrier")
-    st.write("Model Number: 65465464")
-    st.write("Serial Number: 15663489")
-    st.write("Tonnage: 5")
-    st.write("SEER: [Insert SEER]")
-    st.write("Heat: [Insert Heat]")
-    st.write("Status: Operational")
-    st.write("Last Service: [Insert Date]")
-    st.write("Tickets:")
-    ticket_data = [["2023-07-01", "Issue 1", "Part 1", "Complete", "2023-07-02", "$200"]]
-    st.table(ticket_data)
-    if st.button("Upload Image"):
-        st.file_uploader("Choose an image", type=["png", "jpg", "jpeg"])
-    if st.button("Upload Document"):
-        st.file_uploader("Choose a file", type=["pdf", "docx"])
+    units = load_units('data/units.csv')
+    building_units = units[units['Facility'] == '1059 S Sherman']
+
+    if building_units.empty:
+        st.write("No units found for Building 1059.")
+    else:
+        for index, unit in building_units.iterrows():
+            if st.button(unit['Unit ID']):
+                st.session_state.selected_unit = unit['Unit ID']
+                st.session_state.page = 'unit_detail'
+
+# Display the selected unit details if available
+if 'selected_unit' in st.session_state:
+    from pages.unit_detail import unit_detail_page
+    unit_detail_page(st.session_state.selected_unit)
