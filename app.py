@@ -3,12 +3,12 @@ from utils.auth import login, logout, check_authentication
 
 # Debugging prints
 print("Before importing pages")
-import pages.add_edit_unit as add_edit_unit
-import pages.add_ticket as add_ticket
-import pages.building_1001 as building_1001
-import pages.building_1055 as building_1055
-import pages.building_1057 as building_1057
-import pages.building_1059 as building_1059
+from pages import add_edit_unit
+from pages import add_ticket
+from pages import building_1001
+from pages import building_1055
+from pages import building_1057
+from pages import building_1059
 print("After importing pages")
 
 st.set_page_config(page_title="AC Unit Tracker", layout="wide")
