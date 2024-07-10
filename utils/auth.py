@@ -1,6 +1,6 @@
 import streamlit_authenticator as stauth
 
-# Example credentials dictionary
+# Example credentials dictionary with hashed passwords
 hashed_passwords = stauth.Hasher(['password']).generate()
 
 credentials = {
