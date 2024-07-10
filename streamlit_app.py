@@ -19,10 +19,11 @@ def display_menu():
     if st.sidebar.button("Logout", key="logout_btn"):
         st.session_state.authenticated = False
     st.sidebar.markdown("---")
-    st.sidebar.radio("Navigation",
-                     ["Home/Dashboard", "Add/Edit Unit", "Add Ticket",
-                      "Building 1001", "Building 1055", "Building 1057", "Building 1059"],
-                     key="navigation")
+    menu_option = st.sidebar.radio("Navigation",
+                                   ["Home/Dashboard", "Add/Edit Unit", "Add Ticket",
+                                    "Building 1001", "Building 1055", "Building 1057", "Building 1059"],
+                                   key="main_navigation")
+    st.session_state.page = menu_option
 
 # Main function to run the app
 def main():
@@ -31,9 +32,7 @@ def main():
 
     if st.session_state.authenticated:
         display_menu()
-        page = st.sidebar.radio("Navigation", ["Home/Dashboard", "Add/Edit Unit", "Add Ticket",
-                                               "Building 1001", "Building 1055", "Building 1057", "Building 1059"],
-                                key="main_navigation")
+        page = st.session_state.get('page', "Home/Dashboard")
 
         if page == "Home/Dashboard":
             home_page()
@@ -49,15 +48,13 @@ def main():
             building_1057_page()
         elif page == "Building 1059":
             building_1059_page()
-
-        # Handle navigation to detailed pages
-        if 'selected_unit' in st.session_state:
+        elif 'selected_unit' in st.session_state:
             unit_detail_page(st.session_state.selected_unit)
-        elif 'page' in st.session_state and st.session_state.page == 'upload_image':
+        elif st.session_state.page == 'upload_image':
             upload_image_page()
-        elif 'page' in st.session_state and st.session_state.page == 'upload_document':
+        elif st.session_state.page == 'upload_document':
             upload_document_page()
-        elif 'page' in st.session_state and st.session_state.page == 'view_tickets':
+        elif st.session_state.page == 'view_tickets':
             view_tickets_page()
 
     else:
