@@ -25,15 +25,14 @@ def add_edit_unit_page():
         unit_data['Tonnage'] = st.number_input("Tonnage", unit_data.get('Tonnage', 0), format="%d")
         unit_data['Seer'] = st.text_input("Seer", unit_data.get('Seer', ''))
         unit_data['Heat'] = st.text_input("Heat", unit_data.get('Heat', ''))
-        
+
         submit_button = st.form_submit_button(label='Save')
 
     if submit_button:
         if new_unit:
             units = units.append(unit_data, ignore_index=True)
         else:
-            units.update(pd.DataFrame([unit_data]))
+            units.loc[units['Unit ID'] == unit_id] = unit_data
 
         save_units('data/units.csv', units)
         st.success('Unit information saved successfully!')
-
