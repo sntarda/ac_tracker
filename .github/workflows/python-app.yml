@@ -36,10 +36,16 @@ jobs:
         # Exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+    - name: List files for debugging
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Listing all files in the repository:"
+        ls -R
+        echo "Listing contents of the tests directory:"
+        ls -R tests
+
     - name: Test with pytest
       run: |
         pip install pytest
-        echo "Current directory: $(pwd)"
-        echo "Listing all files:"
-        ls -R
         pytest -v
+
