@@ -17,7 +17,7 @@ if not st.session_state['authenticated']:
 
 if st.session_state['authenticated']:
     st.sidebar.title("Main Menu")
-    #menu = st.sidebar.radio("Navigation", ["Home/Dashboard", "Add/Edit Unit", "Add Ticket", "Building 1001", "Building 1055", "Building 1057", "Building 1059", "Logout"])
+    menu = st.sidebar.radio("Navigation", ["Home/Dashboard", "Add/Edit Unit", "Add Ticket", "Building 1001", "Building 1055", "Building 1057", "Building 1059", "Logout"])
     
     if menu == "Logout":
         logout()
