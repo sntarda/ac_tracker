@@ -3,7 +3,7 @@ from utils.auth import authenticator
 from pages import add_edit_unit, add_ticket, building_1001, building_1055, building_1057, building_1059
 
 # Authentication
-name, authentication_status, username = authenticator.login('Login', 'main')
+name, authentication_status, username = authenticator.login('Login')
 
 if authentication_status:
     st.sidebar.title(f"Welcome {name}")
