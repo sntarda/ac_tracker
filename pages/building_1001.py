@@ -12,7 +12,7 @@ def building_1001_page():
         st.write("No units found for Building 1001.")
     else:
         for index, unit in building_units.iterrows():
-            if st.button(unit['Unit ID']):
+            if st.button(unit['Unit ID'], key=f"{unit['Unit ID']}_btn"):
                 st.session_state.selected_unit = unit['Unit ID']
                 st.session_state.page = 'unit_detail'
 
