@@ -1,34 +1,28 @@
 import streamlit as st
-import streamlit_authenticator as stauth
+import pandas as pd
 
-# Example credentials dictionary
-credentials = {
-    'usernames': {
-        'user1': {
-            'name': 'User One',
-            'password': stauth.Hasher(['password']).generate()[0]
-        },
-        'user2': {
-            'name': 'User Two',
-            'password': stauth.Hasher(['password2']).generate()[0]
-        }
-    }
-}
+# Function to load user credentials from a CSV file
+def load_user_credentials(file_path):
+    return pd.read_csv(file_path)
 
-authenticator = stauth.Authenticate(credentials, 'some_cookie_name', 'some_signature_key', cookie_expiry_days=30)
+# Function to authenticate user
+def authenticate_user(username, password, user_credentials):
+    user_row = user_credentials[(user_credentials['username'] == username) & (user_credentials['password'] == password)]
+    return not user_row.empty
 
+# Function to handle user login
 def login():
-    name, authentication_status, username = authenticator.login('Login', 'main')
-    if authentication_status:
-        st.session_state['authenticated'] = True
-        return True
-    elif authentication_status == False:
-        st.error('Username/password is incorrect')
-        return False
-    elif authentication_status == None:
-        st.warning('Please enter your username and password')
-        return False
+    st.session_state.authenticated = False
+    st.title("Login")
 
-def logout():
-    authenticator.logout('Logout', 'sidebar')
-    st.session_state['authenticated'] = False
+    user_credentials = load_user_credentials('data/user_credentials.csv')
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if authenticate_user(username, password, user_credentials):
+            st.session_state.authenticated = True
+            st.success("Login successful!")
+        else:
+            st.error("Invalid username or password")
