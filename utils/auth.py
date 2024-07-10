@@ -7,6 +7,7 @@ def login():
     if st.button("Login"):
         if username == "admin" and password == "password":  # Replace with your authentication logic
             st.session_state['authenticated'] = True
+            st.experimental_rerun()
             return True
         else:
             st.error("Invalid credentials")
