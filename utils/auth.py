@@ -1,12 +1,11 @@
 import streamlit_authenticator as stauth
-import yaml
 
 # Example credentials dictionary
 credentials = {
     'usernames': {
         'admin': {
             'name': 'Admin User',
-            'password': 'password'  # Note: in a real app, passwords should be hashed
+            'password': stauth.Hasher(['password']).generate()  # Hash the password
         }
     }
 }
