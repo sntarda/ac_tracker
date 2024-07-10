@@ -9,7 +9,7 @@ import pages.building_1001
 import pages.building_1055
 import pages.building_1057
 import pages.building_1059
-print("After importing pages")
+#print("After importing pages")
 
 st.set_page_config(page_title="AC Unit Tracker", layout="wide")
 
